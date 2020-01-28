@@ -7,6 +7,9 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 
+
+
+import java.net.URI;
 import java.util.List;
 
 public class Controller {
@@ -56,7 +59,7 @@ public class Controller {
         btnSearchData.setDisable(false);
     }
 
-    public void showData(ActionEvent actionEvent) {
+    public void showData(ActionEvent actionEvent) throws  Exception {
 
         String cityName= (String)combo2.getValue();
 
@@ -74,17 +77,19 @@ public class Controller {
         lblCity.setText("City:   "+city.getName());
         lblCountry.setText("Country:   "+city.getCountry() +" ("+city.getCode3()+")");
         lblPopulation.setText("Population:   "+formatPopString(city.getPopulation()));
+        //
     }
 
     private String formatPopString(int population) {
         String data=String.valueOf(population);
         String text="";
 
-        for(int i=data.length()-1;i>=0;i--) {
+        for(int i=0;i<=data.length()-1;i++) {
             if(i%3==0)
                 text=" "+text;
-            text = data.charAt(i)+text;
+            text = data.charAt(data.length()-i-1)+text;
         }
         return text.trim();
     }
+
 }

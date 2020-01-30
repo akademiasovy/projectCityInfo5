@@ -8,8 +8,13 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 
 
-
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URI;
+import java.net.URL;
 import java.util.List;
 
 public class Controller {
@@ -20,6 +25,8 @@ public class Controller {
     public Label lblCountry;
     public Label lblPopulation;
     public Pane paneDetail;
+    public Label lblHum;
+    public Label lblTemp;
     private List<City> cities = null;
     List<String> countries = null;
 
@@ -77,7 +84,15 @@ public class Controller {
         lblCity.setText("City:   "+city.getName());
         lblCountry.setText("Country:   "+city.getCountry() +" ("+city.getCode3()+")");
         lblPopulation.setText("Population:   "+formatPopString(city.getPopulation()));
-        //
+        Weather weather=new WebWeather().getData(city.getName(),city.getCode2());
+        if(weather!=null){
+            lblTemp.setText("Temperature: "+ String.valueOf(weather.getTemp())+" °C");
+            lblHum.setText("Humidity: "+String.valueOf(weather.getHumidity())+" %");
+        }else{
+            lblTemp.setText("Temperature: --- °C");
+            lblHum.setText("Humidity: --- %");
+        }
+
     }
 
     private String formatPopString(int population) {
@@ -91,5 +106,9 @@ public class Controller {
         }
         return text.trim();
     }
+
+
+
+
 
 }

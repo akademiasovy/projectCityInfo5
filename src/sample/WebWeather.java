@@ -38,9 +38,12 @@ public class WebWeather {
                 String country = obj.getJSONObject("sys").getString("country");
                 String city2 = obj.getString("name");
 
+                int visibility = obj.getInt("visibility");
+                long sunrise = obj.getJSONObject("sys").getLong("sunrise");
+                long sunset = obj.getJSONObject("sys").getLong("sunset");
 
                 System.out.println(temp+" "+humidity+" "+coord_lat+" "+coord_lon);
-                weather = new Weather(city2,country,temp,humidity,coord_lon,coord_lat);
+                weather = new Weather(city2,country,temp,humidity,coord_lon,coord_lat,visibility,sunrise,sunset);
 
             }
             conn.disconnect();

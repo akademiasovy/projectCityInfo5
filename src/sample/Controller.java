@@ -3,6 +3,7 @@ package sample;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
@@ -27,6 +28,11 @@ public class Controller {
     public Pane paneDetail;
     public Label lblHum;
     public Label lblTemp;
+    public Pane paneDetail2;
+    public Label lblVisibility;
+    public Label lblSunSet;
+    public Label lblSunRise;
+    public CheckBox cbxDetails;
     private List<City> cities = null;
     List<String> countries = null;
 
@@ -93,6 +99,10 @@ public class Controller {
             lblHum.setText("Humidity: --- %");
         }
 
+        lblVisibility.setText("Visibility:   "+ String.valueOf(weather.getVisibility())+" m");
+        lblSunRise.setText("Sunrise:   "+ getTimeFormat(weather.getSunrise()));
+        lblSunSet.setText("Sunset:   "+ getTimeFormat(weather.getSunset()));
+
     }
 
     private String formatPopString(int population) {
@@ -108,7 +118,15 @@ public class Controller {
     }
 
 
+    public void cbxDetailsClick(ActionEvent actionEvent) {
+        if(cbxDetails.isSelected())
+            paneDetail2.setVisible(true);
 
+        else
+            paneDetail2.setVisible(false);
+    }
 
-
+    public String getTimeFormat(long number) {
+        return new java.text.SimpleDateFormat("HH:mm").format(new java.util.Date(number * 1000));
+    }
 }
